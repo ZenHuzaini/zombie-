@@ -6,7 +6,7 @@ export class Zombie {
   _id: string;
 
   @PrimaryColumn() //for Public ID. exposing ID / GUID would be a threat
-  id: string;
+  id_: string;
 
   @Column()
   @Index({ unique: true, where: 'name IS NOT NULL' })

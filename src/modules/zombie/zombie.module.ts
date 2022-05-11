@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ZombieController } from './zombie.controller';
+import { ZombieResolver } from './zombie.resolver';
 import { ZombieService } from './zombie.service';
 
 @Module({
-  controllers: [ZombieController],
-  providers: [ZombieService]
+  controllers: [],
+  providers: [ZombieService, ZombieResolver],
 })
 export class ZombieModule {}

@@ -12,12 +12,13 @@ import {
   ListItemDTO,
   UpdateListItemInputDTO,
 } from 'src/shared/dto/listItem.dto';
+import { PagedResultDTO } from 'src/shared/dto/pagedResult.dto';
 import { ZombieCategoryType } from './zombie.types';
 
 @ObjectType()
 export class ZombieDTOBase {
   @Field({ nullable: true })
-  public id: string; //This is something that will be shown to the public
+  public id_: string; //This is something that will be shown to the public
 
   @Field()
   public name: string;
@@ -54,3 +55,9 @@ export class UpdateZombieInputDTO extends IntersectionType(
   UpdateListItemInputDTO,
   InputType,
 ) {}
+
+@ObjectType()
+export class ZombiesPagedResultDTO extends PagedResultDTO<ZombieDTO> {
+  @Field(() => [ZombieDTO])
+  public records: ZombieDTO[];
+}
