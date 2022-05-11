@@ -60,7 +60,7 @@ export class ConfigService {
 
   public getPublicTypeOrmConfig(): TypeOrmModuleOptions {
     const typeOrmConfig: TypeOrmModuleOptions = {
-      ...this.getCommonTypeOrmConfig('default'),
+      ...this.getCommonTypeOrmConfig(),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../migrations/public/*{.ts,.js}'],
       cli: {
@@ -77,19 +77,18 @@ export class ConfigService {
   }
 
   public getMongDBUrl(): string {
-    return `mongodb+srv://software_house-zombie_task:${this.getValue(
+    const url = `mongodb+srv://${this.getValue('MONGODB_USER')}:${this.getValue(
       'MONGODB_PASSWORD',
-    )}@cluster0.5dnvd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+    )}@zombie.if2gj.mongodb.net/zombie?retryWrites=true&w=majority`;
+
+    return url;
   }
 
-  private getCommonTypeOrmConfig(name: string): Partial<TypeOrmModuleOptions> {
+  private getCommonTypeOrmConfig(): Partial<TypeOrmModuleOptions> {
     const typeOrmConfig: Partial<TypeOrmModuleOptions> = {
-      name,
       type: 'mongodb',
       url: this.getMongDBUrl(),
       useNewUrlParser: true,
-      username: this.getValue('MONGODB_USER'),
-      password: this.getValue('MONGODB_PASSWORD'),
       migrationsTableName: 'migrations',
       synchronize: false,
       useUnifiedTopology: true,

@@ -17,9 +17,6 @@ import { ZombieCategoryType, ZombieGenderType } from './zombie.types';
 
 @ObjectType()
 export class ZombieDTOBase {
-  @Field({ nullable: true })
-  public id_: string; //This is something that will be shown to the public
-
   @Field()
   public name: string;
 
@@ -28,9 +25,6 @@ export class ZombieDTOBase {
 
   @Field({ nullable: true })
   public ageCategory: ZombieCategoryType;
-
-  @Field({ nullable: true })
-  public dateCreated: Date; //Mongo has provided a createdAt column, but this is something that will be shown to public
 }
 
 @ObjectType()
@@ -42,7 +36,7 @@ export class ZombieDTO extends IntersectionType(
 
 @InputType()
 export class CreateZombieInputDTO extends IntersectionType(
-  OmitType(ZombieDTO, ['dateCreated']), //Exclude date Created from creation to avoid redudancy
+  ZombieDTO,
   CreateListItemInputWithoutSystemFieldsDTO,
   InputType,
 ) {}

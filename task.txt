@@ -20,5 +20,6 @@ You can also include any concerns and questions that arose during the process an
 
 
 TODO:
+ - error
  - extend user list item identifier
  - with authentication

@@ -1,6 +1,5 @@
 import {
   Field,
-  Int,
   ObjectType,
   OmitType,
   InputType,
@@ -10,14 +9,8 @@ import { ListResult } from '../interface/common';
 
 @ObjectType()
 export class ListItemWithoutUserInfoDTO implements ListResult<Date> {
-  /**
-   * Used by the Apollo Client as a key for caching
-   */
-  @Field(() => Int)
-  public id?: number;
-
-  @Field(() => Int)
-  public ID: number;
+  @Field({ nullable: true })
+  public _id: string;
 
   @Field(() => GraphQLISODateTime, { nullable: true })
   public Created: Date;
@@ -25,26 +18,26 @@ export class ListItemWithoutUserInfoDTO implements ListResult<Date> {
   @Field(() => GraphQLISODateTime, { nullable: true })
   public Modified: Date;
 
-  @Field()
+  @Field({ nullable: true })
   public GUID: string;
 }
 
 @ObjectType()
 export class ListItemDTO extends ListItemWithoutUserInfoDTO {
-  @Field(() => Int, { nullable: true })
-  public AuthorID: number;
+  @Field({ nullable: true })
+  public AuthorID: string;
 
-  @Field(() => Int, { nullable: true })
-  public EditorID: number;
+  @Field({ nullable: true })
+  public EditorID: string;
 }
 
 @InputType()
 export class CreateListItemInputDTO extends OmitType<
   ListItemDTO,
-  'id' | 'ID' | 'GUID'
->(ListItemDTO, ['id', 'ID', 'GUID'], InputType) {
-  @Field(() => Int, { nullable: true })
-  public ID: number;
+  '_id' | 'GUID'
+>(ListItemDTO, ['_id', 'GUID'], InputType) {
+  @Field({ nullable: true })
+  public _id: string;
 
   @Field({ nullable: true })
   public GUID: string;
@@ -53,19 +46,19 @@ export class CreateListItemInputDTO extends OmitType<
 @InputType()
 export class CreateListItemInputWithoutSystemFieldsDTO extends OmitType<
   ListItemDTO,
-  'id' | 'ID' | 'GUID' | 'Created' | 'Modified' | 'AuthorID' | 'EditorID'
+  '_id' | 'GUID' | 'Created' | 'Modified' | 'AuthorID' | 'EditorID'
 >(
   ListItemDTO,
-  ['id', 'ID', 'GUID', 'Created', 'Modified', 'AuthorID', 'EditorID'],
+  ['_id', 'GUID', 'Created', 'Modified', 'AuthorID', 'EditorID'],
   InputType,
 ) {}
 
 @InputType()
 export class UpdateListItemInputDTO extends OmitType<
   ListItemDTO,
-  'id' | 'ID' | 'GUID' | 'Modified' | 'Created' | 'AuthorID' | 'EditorID'
+  '_id' | 'GUID' | 'Modified' | 'Created' | 'AuthorID' | 'EditorID'
 >(
   ListItemDTO,
-  ['id', 'ID', 'GUID', 'Modified', 'Created', 'AuthorID', 'EditorID'],
+  ['_id', 'GUID', 'Modified', 'Created', 'AuthorID', 'EditorID'],
   InputType,
 ) {}

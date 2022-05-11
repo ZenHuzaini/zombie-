@@ -1,4 +1,4 @@
-import { Column, Index, JoinColumn, ManyToOne, Unique } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, Unique } from 'typeorm';
 
 import {
   ListItemWithoutUserInfo,
@@ -6,6 +6,7 @@ import {
 } from '../../shared/entity/listitemWithoutUserInfo.entity';
 
 @Unique(LIST_ITEM_WITHOUT_USER_INFO_UNIQUE_FIELDS)
+@Entity()
 export class User extends ListItemWithoutUserInfo {
   @Column({ nullable: true })
   @Index({ unique: true, where: 'email IS NOT NULL' })
@@ -22,11 +23,11 @@ export class User extends ListItemWithoutUserInfo {
   @Index()
   public EditorID: number;
 
-  @ManyToOne(() => User, (user) => user.ID, { nullable: true })
+  @ManyToOne(() => User, (user) => user._id, { nullable: true })
   @JoinColumn({ name: 'AuthorID' })
   public author: User;
 
-  @ManyToOne(() => User, (user) => user.ID, { nullable: true })
+  @ManyToOne(() => User, (user) => user._id, { nullable: true })
   @JoinColumn({ name: 'EditorID' })
   public editor: User;
 }

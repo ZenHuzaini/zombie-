@@ -1,14 +1,14 @@
 export interface ListResult<DateType = string> {
   Created?: DateType;
   Modified?: DateType;
-  ID?: number;
+  ID?: string;
   Author?: UserInfo;
   Editor?: UserInfo;
   GUID?: string;
 }
 
 export interface UserInfo {
-  ID: number;
+  ID: string;
   Title: string;
   EMail: string;
 }

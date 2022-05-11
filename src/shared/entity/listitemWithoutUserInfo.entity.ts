@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Index, Column } from 'typeorm';
+import { PrimaryGeneratedColumn, Index, Column, ObjectIdColumn } from 'typeorm';
 import { ListResult } from '../interface/common';
 
 export const LIST_ITEM_WITHOUT_USER_INFO_UNIQUE_FIELDS: (keyof ListItemWithoutUserInfo)[] =
@@ -7,17 +7,17 @@ export const LIST_ITEM_WITHOUT_USER_INFO_UNIQUE_FIELDS: (keyof ListItemWithoutUs
 export class ListItemWithoutUserInfo
   implements Omit<ListResult<Date>, 'Author' | 'Editor'>
 {
-  @PrimaryGeneratedColumn()
+  @ObjectIdColumn()
   @Index()
-  public ID: number;
+  public _id: string;
 
-  @Column('datetime')
+  @Column('datetime', { default: null })
   public Created: Date;
 
-  @Column('datetime')
+  @Column('datetime', { default: null })
   public Modified: Date;
 
-  @Column()
+  @Column({ default: null })
   @Index()
   public GUID: string;
 }

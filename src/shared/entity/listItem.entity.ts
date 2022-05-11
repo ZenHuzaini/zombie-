@@ -13,19 +13,19 @@ export class ListItem
   extends ListItemWithoutUserInfo
   implements Omit<ListResult<Date>, 'Author' | 'Editor'>
 {
-  @Column()
+  @Column({ default: null })
   @Index()
-  public AuthorID: number;
+  public AuthorID: string;
 
-  @Column()
+  @Column({ default: null })
   @Index()
-  public EditorID: number;
+  public EditorID: string;
 
-  @ManyToOne(() => User, (user) => user.ID, { eager: true })
+  @ManyToOne(() => User, (user) => user._id, { eager: true })
   @JoinColumn({ name: 'AuthorID' })
   public author?: User;
 
-  @ManyToOne(() => User, (user) => user.ID, { eager: true })
+  @ManyToOne(() => User, (user) => user._id, { eager: true })
   @JoinColumn({ name: 'EditorID' })
   public editor?: User;
 }
