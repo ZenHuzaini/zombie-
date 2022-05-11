@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { ItemModule } from './modules/item/item.module';
 import { UserModule } from './modules/user/user.module';
 import { ZombieModule } from './modules/zombie/zombie.module';
 
@@ -20,9 +21,7 @@ const GRAPHQL_SCHEMA_PATH = join(__dirname, 'schema.gql');
       debug: isDev,
       playground: true,
       cors: false,
-      autoSchemaFile: true, //GRAPHQL_SCHEMA_PATH,
-      // Enabled so developers can  discover the api
-      // As all apis are secured by the auth middleware it is only possible for authenticated users to inspect the api
+      autoSchemaFile: GRAPHQL_SCHEMA_PATH,
       introspection: true,
       path: '/api/graphql',
     }),
@@ -37,6 +36,7 @@ const GRAPHQL_SCHEMA_PATH = join(__dirname, 'schema.gql');
     ZombieModule,
     ConfigModule,
     UserModule,
+    ItemModule,
   ],
   controllers: [AppController],
   providers: [AppService],

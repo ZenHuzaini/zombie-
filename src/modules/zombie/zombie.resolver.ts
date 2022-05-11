@@ -20,15 +20,14 @@ export class ZombieResolver {
     })
     paginationDTO: PaginationDTO,
   ): Promise<ZombiesPagedResultDTO> {
-    return zombiesPagedResult;
+    return this.zombieService.getAllZombies(paginationDTO);
   }
 
   @Mutation(() => ZombieDTO)
-  createLesson(
+  createZombie(
     @Args({ name: 'zombie', type: () => CreateZombieInputDTO })
     zombie: CreateZombieInputDTO,
   ) {
-    //call service
     return this.zombieService.createZombie(zombie);
   }
 }

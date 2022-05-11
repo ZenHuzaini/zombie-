@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { mapToDto, setCreatedAndModifiedFields } from 'src/shared/dto/mapping';
+import { PaginationDTO } from 'src/shared/dto/pagination.dto';
+import { getPaginationOptions } from 'src/utils/resolver/getPaginationOptions';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { CreateZombieInputDTO, ZombieDTO } from './zombie.dto';
+import {
+  CreateZombieInputDTO,
+  ZombieDTO,
+  ZombiesPagedResultDTO,
+} from './zombie.dto';
 import { Zombie } from './zombie.entity';
 
 @Injectable()
@@ -23,9 +29,22 @@ export class ZombieService {
       name,
     });
 
-    const zombie = mapToDto<Zombie, ZombieDTO>(saveData);
-    console.log('get zombieee ', zombie);
+    return mapToDto<Zombie, ZombieDTO>(saveData);
+  }
 
-    return zombie;
+  async getAllZombies(
+    paginationDTO: PaginationDTO,
+  ): Promise<ZombiesPagedResultDTO> {
+    const paginationOptions = getPaginationOptions(paginationDTO);
+    const [zombies, count] = await this.zombieRepository.findAndCount({
+      skip: paginationOptions.startIndex,
+      take: paginationOptions.itemCount,
+    });
+    const records = zombies.map((item) => mapToDto<Zombie, ZombieDTO>(item));
+
+    return {
+      count,
+      records,
+    };
   }
 }
