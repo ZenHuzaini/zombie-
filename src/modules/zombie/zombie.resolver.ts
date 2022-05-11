@@ -1,10 +1,16 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import { zombiesPagedResult } from 'src/test/constants/user';
-import { ZombieDTO, ZombiesPagedResultDTO } from './zombie.dto';
+import {
+  CreateZombieInputDTO,
+  ZombieDTO,
+  ZombiesPagedResultDTO,
+} from './zombie.dto';
+import { ZombieService } from './zombie.service';
 
 @Resolver(() => ZombieDTO)
 export class ZombieResolver {
+  constructor(private readonly zombieService: ZombieService) {}
   @Query(() => ZombiesPagedResultDTO)
   public async zombies(
     @Args({
@@ -15,5 +21,14 @@ export class ZombieResolver {
     paginationDTO: PaginationDTO,
   ): Promise<ZombiesPagedResultDTO> {
     return zombiesPagedResult;
+  }
+
+  @Mutation(() => ZombieDTO)
+  createLesson(
+    @Args({ name: 'zombie', type: () => CreateZombieInputDTO })
+    zombie: CreateZombieInputDTO,
+  ) {
+    //call service
+    return this.zombieService.createZombie(zombie);
   }
 }

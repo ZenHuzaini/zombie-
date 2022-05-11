@@ -1,7 +1,8 @@
+import { ListItem } from 'src/shared/entity/listItem.entity';
 import { Column, Entity, Index, ObjectIdColumn, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Zombie {
+export class Zombie extends ListItem {
   @ObjectIdColumn()
   _id: string;
 

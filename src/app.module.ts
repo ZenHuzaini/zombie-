@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
+import { UserModule } from './modules/user/user.module';
 import { ZombieModule } from './modules/zombie/zombie.module';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -35,6 +36,7 @@ const GRAPHQL_SCHEMA_PATH = join(__dirname, 'schema.gql');
     }),
     ZombieModule,
     ConfigModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
