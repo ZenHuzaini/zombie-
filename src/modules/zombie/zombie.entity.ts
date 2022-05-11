@@ -13,8 +13,11 @@ export class Zombie {
   name: string;
 
   @Column()
-  dateCreated: string; //Provided for public . Though I think it would not be necessary. Just
+  dateCreated: string; //Provided for public . Though I think it would not be necessary.
 
   @Column()
   gender: string;
+
+  @Column()
+  ageCategory: string;
 }

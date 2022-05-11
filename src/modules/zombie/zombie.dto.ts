@@ -13,7 +13,7 @@ import {
   UpdateListItemInputDTO,
 } from 'src/shared/dto/listItem.dto';
 import { PagedResultDTO } from 'src/shared/dto/pagedResult.dto';
-import { ZombieCategoryType } from './zombie.types';
+import { ZombieCategoryType, ZombieGenderType } from './zombie.types';
 
 @ObjectType()
 export class ZombieDTOBase {
@@ -24,7 +24,10 @@ export class ZombieDTOBase {
   public name: string;
 
   @Field({ nullable: true })
-  public gender: ZombieCategoryType;
+  public gender: ZombieGenderType;
+
+  @Field({ nullable: true })
+  public ageCategory: ZombieCategoryType;
 
   @Field({ nullable: true })
   public dateCreated: Date; //Mongo has provided a createdAt column, but this is something that will be shown to public

@@ -1,5 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
+import { zombiesPagedResult } from 'src/test/constants/user';
 import { ZombieDTO, ZombiesPagedResultDTO } from './zombie.dto';
 
 @Resolver(() => ZombieDTO)
@@ -13,34 +14,6 @@ export class ZombieResolver {
     })
     paginationDTO: PaginationDTO,
   ): Promise<ZombiesPagedResultDTO> {
-    return {
-      count: 2,
-      records: [
-        {
-          name: 'aaa',
-          gender: 'Kid',
-          dateCreated: new Date(),
-          AuthorID: 2,
-          Created: new Date(),
-          EditorID: 3,
-          GUID: 'eeert',
-          ID: 1,
-          id_: '1',
-          Modified: new Date(),
-        },
-        {
-          name: 'test file',
-          gender: 'Kid',
-          dateCreated: new Date(),
-          AuthorID: 2,
-          Created: new Date(),
-          EditorID: 3,
-          GUID: 'eeert',
-          ID: 1,
-          id_: '1',
-          Modified: new Date(),
-        },
-      ],
-    };
+    return zombiesPagedResult;
   }
 }
