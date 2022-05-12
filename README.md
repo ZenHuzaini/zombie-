@@ -60,10 +60,10 @@ $ npm run test:cov
 
 ## Tech Used
 
-NodeJS with NestJS framework
-Typeorm
-Mongodb Atlas
-Graphql
+- NodeJS with NestJS framework
+- Typeorm
+- Mongodb Atlas
+- Graphql
 
 ## Important link
 
@@ -77,28 +77,24 @@ This app is deployed on Heroku
 
 ## Completed User stories:
 
-[x] I want to display details about selected zombie (name and creation date);
-[x] I want to display items that this zombie has;
-[x] I want to see total value of zombie’s items in 3 currencies, PLN/EU/USD;
-[x] I want to add and remove items from the zombie;
-[x] I want to see a list of zombies (create/update/remove them also);
-[x] The zombie can have a maximum of 5 items.
-[x] We use an external item exchange for our zombie (we pay for every request), the prices of items on the exchange are updated daily at 00:00 UTC and are in Polish zlotys. https://zombie-items-api.herokuapp.com/api/items
---- I implemented a scehduler service, when http://api.nbp.pl/api/exchangerates/tables/C/today/ changes every night
-[x] We use the NBP API to download daily exchange rates http://api.nbp.pl/api/exchangerates/tables/C/today/
-[x] Please take the RESTful approach or GraphQL - whatever you feel more comfortable with.
---- Graphql
-[x] Nice to have: app placed on the hosting (heroku/zeit or anything else) or dockerized.
-[ ] Do as much as you are able to (zombies CRUD and tests are a must) - in case of lack of time, please create a .txt file and describe what you were planning to do. Please mention the tools that you would use and as many implementation details as you can. (I ran out if time to create the tests)
+- [x] I want to display details about selected zombie (name and creation date);
+- [x] I want to display items that this zombie has;
+- [x] I want to see total value of zombie’s items in 3 currencies, PLN/EU/USD;
+- [x] I want to add and remove items from the zombie;
+- [x] I want to see a list of zombies (create/update/remove them also);
+- [x] The zombie can have a maximum of 5 items.
+- [x] We use an external item exchange for our zombie (we pay for every request), the prices of items on the exchange are updated daily at 00:00 UTC and are in Polish zlotys. https://zombie-items-api.herokuapp.com/api/items
+      --- I implemented a scehduler service, when http://api.nbp.pl/api/exchangerates/tables/C/today/ changes every night
+- [x] We use the NBP API to download daily exchange rates http://api.nbp.pl/api/exchangerates/tables/C/today/
+- [x] Please take the RESTful approach or GraphQL - whatever you feel more comfortable with.
+      --- Graphql
+- [x] Nice to have: app placed on the hosting (heroku/zeit or anything else) or dockerized.
+- [ ] Do as much as you are able to (zombies CRUD and tests are a must) - in case of lack of time, please create a .txt file and describe what you were planning to do. Please mention the tools that you would use and as many implementation details as you can. (I ran out if time to create the tests)
 
----
-
-## TODO:
-
-- more error handling
-- extend user list item identifier
-- with user authentication
-- migration
+- [ ] more error handling
+- [ ] extend user list item identifier
+- [ ] with user authentication
+- [ ] migration
 
 ### GRAPHQL Examples
 
