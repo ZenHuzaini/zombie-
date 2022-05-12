@@ -4,7 +4,6 @@ import {
   IntersectionType,
   ObjectType,
   PickType,
-  OmitType,
   PartialType,
   Int,
 } from '@nestjs/graphql';
@@ -17,6 +16,9 @@ import { PagedResultDTO } from 'src/shared/dto/pagedResult.dto';
 
 @ObjectType()
 export class ItemDTOBase {
+  @Field()
+  public zombieId: string;
+
   @Field()
   public name: string;
 

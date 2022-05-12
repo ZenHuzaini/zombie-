@@ -15,12 +15,13 @@ export class ItemService {
   ) {}
 
   async createItem(ItemDTO: CreateItemInputDTO): Promise<ItemDTO> {
-    const { price, name } = ItemDTO;
+    const { price, name, zombieId } = ItemDTO;
 
     const saveData = await this.itemRepository.save({
       ...setCreatedAndModifiedFields(),
       price,
       name,
+      zombieId,
     });
 
     const Item = mapToDto<Item, ItemDTO>(saveData);
@@ -42,4 +43,12 @@ export class ItemService {
       records,
     };
   }
+
+  public getItemsByZombieId = async (zombieId: string): Promise<ItemDTO[]> => {
+    const items = await this.itemRepository.find({
+      zombieId: zombieId.toString(),
+    });
+    const records = items.map((item) => mapToDto<Item, ItemDTO>(item));
+    return records;
+  };
 }

@@ -1,5 +1,6 @@
 import { ListItem } from 'src/shared/entity/listItem.entity';
-import { Column, Entity, Index, Unique } from 'typeorm';
+import { Column, Entity, Index, OneToMany, Unique } from 'typeorm';
+import { Item } from '../item/item.entity';
 
 @Entity()
 export class Zombie extends ListItem {
@@ -12,4 +13,7 @@ export class Zombie extends ListItem {
 
   @Column()
   ageCategory: string;
+
+  @OneToMany(() => Item, (item) => item.zombie, { eager: true })
+  public items: Item[];
 }

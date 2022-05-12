@@ -1,6 +1,5 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
-import { itemsPagedResult } from 'src/test/constants/item';
 import { CreateItemInputDTO, ItemDTO, ItemsPagedResultDTO } from './item.dto';
 import { ItemService } from './item.service';
 
@@ -19,6 +18,7 @@ export class ItemResolver {
     return this.itemService.getAllItems(paginationDTO);
   }
 
+  //Buy Item-------
   @Mutation(() => ItemDTO)
   createItem(
     @Args({ name: 'Item', type: () => CreateItemInputDTO })

@@ -3,6 +3,7 @@ import { ItemDTO, ItemsPagedResultDTO } from 'src/modules/item/item.dto';
 export const items: ItemDTO[] = [
   {
     name: 'test',
+    zombieId: '1',
     price: 100,
     AuthorID: 'abcdef',
     Created: new Date(),
@@ -13,6 +14,7 @@ export const items: ItemDTO[] = [
   },
   {
     name: 'test 0',
+    zombieId: '4',
     price: 20,
     AuthorID: 'abcdeff',
     Created: new Date(),
@@ -24,6 +26,7 @@ export const items: ItemDTO[] = [
   {
     name: 'test 1',
     price: 5,
+    zombieId: '2',
     AuthorID: 'abcdeff',
     Created: new Date(),
     EditorID: 'abcdeff',
