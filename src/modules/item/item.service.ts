@@ -6,7 +6,7 @@ import { mapToDto, setCreatedAndModifiedFields } from 'src/shared/dto/mapping';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import { getPaginationOptions } from 'src/utils/resolver/getPaginationOptions';
 import { currencyCalculation } from 'src/utils/service/currencyCalculation';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import {
   CreateItemInputDTO,
   ExternalItemApiResponse,
@@ -19,6 +19,7 @@ import {
 } from './item.dto';
 import { Item } from './item.entity';
 import { ERROR_MESSAGES } from 'src/constants/errorMessages';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class ItemService {
@@ -150,4 +151,14 @@ export class ItemService {
 
     return currencyCalculation(items, rates);
   };
+
+  async deleteZombieItem(
+    zombieId: string,
+    itemId: string,
+  ): Promise<DeleteResult> {
+    return await this.itemRepository.delete({
+      zombieId,
+      _id: new ObjectId(itemId),
+    });
+  }
 }

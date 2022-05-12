@@ -1,4 +1,5 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { DeletedItemDTO } from 'src/shared/dto/listItem.dto';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import {
   CreateItemInputDTO,
@@ -46,5 +47,14 @@ export class ItemResolver {
     itemId: number,
   ) {
     return this.itemService.buyItem(zombieId, itemId);
+  }
+
+  @Mutation(() => DeletedItemDTO)
+  public async deleteZombieItem(
+    @Args('zombieId') zombieId: string,
+    @Args('itemId') itemId: string,
+  ): Promise<DeletedItemDTO> {
+    const a = await this.itemService.deleteZombieItem(zombieId, itemId);
+    return { _id: zombieId };
   }
 }
