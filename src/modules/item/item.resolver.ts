@@ -1,6 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
-import { CreateItemInputDTO, ItemDTO, ItemsPagedResultDTO } from './item.dto';
+import {
+  CreateItemInputDTO,
+  ExternalItemsPagedResultDTO,
+  ItemDTO,
+  ItemsPagedResultDTO,
+} from './item.dto';
 import { ItemService } from './item.service';
 
 @Resolver(() => ItemDTO)
@@ -18,12 +23,28 @@ export class ItemResolver {
     return this.itemService.getAllItems(paginationDTO);
   }
 
-  //Buy Item-------
+  //Not Buy Item
   @Mutation(() => ItemDTO)
   createItem(
     @Args({ name: 'Item', type: () => CreateItemInputDTO })
     Item: CreateItemInputDTO,
   ) {
     return this.itemService.createItem(Item);
+  }
+
+  @Query(() => ExternalItemsPagedResultDTO)
+  public async externalItems(): Promise<ExternalItemsPagedResultDTO> {
+    return this.itemService.getExternalItems();
+  }
+
+  @Mutation(() => ItemDTO)
+  buyExternalItem(
+    @Args({ name: 'zombieId', type: () => String })
+    zombieId: string,
+
+    @Args({ name: 'itemId', type: () => Int })
+    itemId: number,
+  ) {
+    return this.itemService.buyItem(zombieId, itemId);
   }
 }

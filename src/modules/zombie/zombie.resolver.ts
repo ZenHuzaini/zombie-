@@ -48,7 +48,9 @@ export class ZombieResolver {
   }
 
   @ResolveField('totalItemPrice', () => TotalItemPriceDTO)
-  public async totalItemPrice(@Parent() zombie: ZombieDTO): Promise<ItemDTO[]> {
-    return this.itemService.getItemsByZombieId(zombie._id);
+  public async totalItemPrice(
+    @Parent() zombie: ZombieDTO,
+  ): Promise<TotalItemPriceDTO> {
+    return this.itemService.getTotalItemPrice(zombie._id);
   }
 }

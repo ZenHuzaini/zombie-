@@ -14,9 +14,21 @@ import {
 } from 'src/shared/dto/listItem.dto';
 import { PagedResultDTO } from 'src/shared/dto/pagedResult.dto';
 
+export interface ExternalItemApiResponse {
+  timestamp: number;
+  items: Partial<ExternalItemDTO[]>;
+}
+
+export interface ExternalRateApiResponse {
+  currency: string;
+  code: string;
+  bid: number;
+  ask: number;
+}
+
 @ObjectType()
 export class ItemDTOBase {
-  @Field()
+  @Field({ nullable: true })
   public zombieId: string;
 
   @Field()
@@ -62,13 +74,19 @@ export class ItemsPagedResultDTO extends PagedResultDTO<ItemDTO> {
 }
 
 @ObjectType()
+export class ExternalItemsPagedResultDTO extends PagedResultDTO<ExternalItemDTO> {
+  @Field(() => [ExternalItemDTO])
+  public records: Partial<ExternalItemDTO[]>;
+}
+
+@ObjectType()
 export class TotalItemPriceDTO {
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   public PLN: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   public EU: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { nullable: true })
   public USD: number;
 }
