@@ -92,6 +92,7 @@ export class ConfigService {
       migrationsTableName: 'migrations',
       synchronize: false,
       useUnifiedTopology: true,
+      logging: true,
     };
 
     return typeOrmConfig;

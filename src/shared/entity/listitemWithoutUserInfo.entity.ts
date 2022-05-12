@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Index, Column, ObjectIdColumn } from 'typeorm';
+import { Index, Column, ObjectIdColumn } from 'typeorm';
 import { ListResult } from '../interface/common';
 
 export const LIST_ITEM_WITHOUT_USER_INFO_UNIQUE_FIELDS: (keyof ListItemWithoutUserInfo)[] =
@@ -9,7 +9,7 @@ export class ListItemWithoutUserInfo
 {
   @ObjectIdColumn()
   @Index()
-  public _id: string;
+  public _id: any; //TODO: should be typed. Type in mongodb driver is not available
 
   @Column('datetime', { default: null })
   public Created: Date;

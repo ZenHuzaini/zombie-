@@ -47,6 +47,7 @@ export class ItemService {
   //Scehduling every midninght, the rate must be updated
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   handleSchedule() {
+    console.log('ting ');
     this.rate = this.httpService
       .get('http://api.nbp.pl/api/exchangerates/tables/C/today/')
       .toPromise()

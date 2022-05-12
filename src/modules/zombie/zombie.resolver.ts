@@ -11,6 +11,7 @@ import { ItemDTO, TotalItemPriceDTO } from '../item/item.dto';
 import { ItemService } from '../item/item.service';
 import {
   CreateZombieInputDTO,
+  UpdateZombieInputDTO,
   ZombieDTO,
   ZombiesPagedResultDTO,
 } from './zombie.dto';
@@ -34,12 +35,26 @@ export class ZombieResolver {
     return this.zombieService.getAllZombies(paginationDTO);
   }
 
+  @Query(() => ZombieDTO)
+  public async zombie(@Args('id') id: string): Promise<ZombieDTO> {
+    return this.zombieService.getZombieById(id);
+  }
+
   @Mutation(() => ZombieDTO)
   createZombie(
     @Args({ name: 'zombie', type: () => CreateZombieInputDTO })
     zombie: CreateZombieInputDTO,
   ) {
     return this.zombieService.createZombie(zombie);
+  }
+
+  @Mutation(() => ZombieDTO)
+  updateZombie(
+    @Args({ name: 'zombie', type: () => UpdateZombieInputDTO })
+    zombie: UpdateZombieInputDTO,
+    @Args('id') id: string,
+  ) {
+    return this.zombieService.updateZombie(zombie, id);
   }
 
   @ResolveField('items', () => [ItemDTO])
