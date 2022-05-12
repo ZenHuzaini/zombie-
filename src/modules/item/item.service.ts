@@ -23,7 +23,7 @@ import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class ItemService {
-  private readonly externalItems: unknown;
+  private externalItems: unknown;
   private rate: unknown;
 
   constructor(
@@ -53,6 +53,13 @@ export class ItemService {
       .toPromise()
       .then((response) => {
         return response.data[0].rates;
+      });
+
+    this.externalItems = this.httpService
+      .get('https://zombie-items-api.herokuapp.com/api/items')
+      .toPromise()
+      .then((response) => {
+        return response.data;
       });
   }
 
