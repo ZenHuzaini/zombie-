@@ -4,6 +4,7 @@ import {
   OmitType,
   InputType,
   GraphQLISODateTime,
+  PickType,
 } from '@nestjs/graphql';
 import { ListResult } from '../interface/common';
 
@@ -61,4 +62,11 @@ export class UpdateListItemInputDTO extends OmitType<
   ListItemDTO,
   ['_id', 'GUID', 'Modified', 'Created', 'AuthorID', 'EditorID'],
   InputType,
+) {}
+
+@ObjectType()
+export class DeletedItemDTO extends PickType<ListItemDTO, '_id'>(
+  ListItemDTO,
+  ['_id'],
+  ObjectType,
 ) {}

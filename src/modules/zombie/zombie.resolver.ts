@@ -6,6 +6,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { DeletedItemDTO } from 'src/shared/dto/listItem.dto';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import { ItemDTO, TotalItemPriceDTO } from '../item/item.dto';
 import { ItemService } from '../item/item.service';
@@ -41,7 +42,7 @@ export class ZombieResolver {
   }
 
   @Mutation(() => ZombieDTO)
-  createZombie(
+  public async createZombie(
     @Args({ name: 'zombie', type: () => CreateZombieInputDTO })
     zombie: CreateZombieInputDTO,
   ) {
@@ -49,12 +50,18 @@ export class ZombieResolver {
   }
 
   @Mutation(() => ZombieDTO)
-  updateZombie(
+  public async updateZombie(
     @Args({ name: 'zombie', type: () => UpdateZombieInputDTO })
     zombie: UpdateZombieInputDTO,
     @Args('id') id: string,
   ) {
     return this.zombieService.updateZombie(zombie, id);
+  }
+
+  @Mutation(() => DeletedItemDTO)
+  public async deleteZombie(@Args('id') id: string): Promise<DeletedItemDTO> {
+    await this.zombieService.deleteZombie(id);
+    return { _id: id };
   }
 
   @ResolveField('items', () => [ItemDTO])

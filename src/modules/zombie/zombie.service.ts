@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { mapToDto, setCreatedAndModifiedFields } from 'src/shared/dto/mapping';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import { getPaginationOptions } from 'src/utils/resolver/getPaginationOptions';
-import { FindConditions, Repository } from 'typeorm';
+import { DeleteResult, FindConditions, Repository } from 'typeorm';
 import {
   CreateZombieInputDTO,
   UpdateZombieInputDTO,
@@ -40,6 +40,10 @@ export class ZombieService {
     const update = await this.zombieRepository.update(id, zombieDTO);
     console.log('update ', update);
     return this.getZombieById(id);
+  }
+
+  async deleteZombie(id: string): Promise<DeleteResult> {
+    return await this.zombieRepository.delete(id);
   }
 
   async getZombieById(id: string): Promise<ZombieDTO> {
