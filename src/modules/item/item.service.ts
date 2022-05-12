@@ -1,18 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { mapToDto, setCreatedAndModifiedFields } from 'src/shared/dto/mapping';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
 import { getPaginationOptions } from 'src/utils/resolver/getPaginationOptions';
+import { currencyCalculation } from 'src/utils/service/currencyCalculation';
 import { Repository } from 'typeorm';
-import { CreateItemInputDTO, ItemDTO, ItemsPagedResultDTO } from './item.dto';
+import {
+  CreateItemInputDTO,
+  ExternalItemDTO,
+  ItemDTO,
+  ItemsPagedResultDTO,
+  TotalItemPriceDTO,
+} from './item.dto';
 import { Item } from './item.entity';
 
 @Injectable()
 export class ItemService {
+  private readonly externalItems: unknown;
   constructor(
     @InjectRepository(Item)
     private itemRepository: Repository<Item>,
-  ) {}
+    private httpService: HttpService,
+  ) {
+    this.externalItems = this.httpService
+      .get('https://zombie-items-api.herokuapp.com/api/items')
+      .toPromise()
+      .then((response) => {
+        return response.data;
+      });
+  }
 
   async createItem(ItemDTO: CreateItemInputDTO): Promise<ItemDTO> {
     const { price, name, zombieId } = ItemDTO;
@@ -50,5 +68,23 @@ export class ItemService {
     });
     const records = items.map((item) => mapToDto<Item, ItemDTO>(item));
     return records;
+  };
+
+  public getTotalItemPrice = async (
+    zombieId: string,
+  ): Promise<TotalItemPriceDTO> => {
+    const items = await this.itemRepository.find({
+      zombieId: zombieId.toString(),
+    });
+
+    if (items.length < 1) {
+      return {
+        EU: 0,
+        PLN: 0,
+        USD: 0,
+      };
+    }
+
+    return currencyCalculation(items);
   };
 }

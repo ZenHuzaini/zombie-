@@ -7,8 +7,7 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
-import { zombiesPagedResult } from 'src/test/constants/user';
-import { ItemDTO } from '../item/item.dto';
+import { ItemDTO, TotalItemPriceDTO } from '../item/item.dto';
 import { ItemService } from '../item/item.service';
 import {
   CreateZombieInputDTO,
@@ -45,6 +44,11 @@ export class ZombieResolver {
 
   @ResolveField('items', () => [ItemDTO])
   public async items(@Parent() zombie: ZombieDTO): Promise<ItemDTO[]> {
+    return this.itemService.getItemsByZombieId(zombie._id);
+  }
+
+  @ResolveField('totalItemPrice', () => TotalItemPriceDTO)
+  public async totalItemPrice(@Parent() zombie: ZombieDTO): Promise<ItemDTO[]> {
     return this.itemService.getItemsByZombieId(zombie._id);
   }
 }

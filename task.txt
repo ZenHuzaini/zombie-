@@ -18,8 +18,7 @@ Do as much as you are able to (zombies CRUD and tests are a must) - in case of l
 You can also include any concerns and questions that arose during the process and you would like to ask the PM. Or maybe you have any ideas on how to improve the app? Whatever comes to your mind - please put it also in the txt file and show us your way of thinking.
 
 
-
 TODO:
- - error
+ - error handling
  - extend user list item identifier
- - with authentication
+ - with user authentication

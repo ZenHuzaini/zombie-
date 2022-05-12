@@ -27,6 +27,12 @@ export class ItemDTOBase {
 }
 
 @ObjectType()
+export class ExternalItemDTO extends ItemDTOBase {
+  @Field(() => Int)
+  public id: number;
+}
+
+@ObjectType()
 export class ItemDTO extends IntersectionType(
   ItemDTOBase,
   ListItemDTO,
@@ -53,4 +59,16 @@ export class UpdateItemInputDTO extends IntersectionType(
 export class ItemsPagedResultDTO extends PagedResultDTO<ItemDTO> {
   @Field(() => [ItemDTO])
   public records: ItemDTO[];
+}
+
+@ObjectType()
+export class TotalItemPriceDTO {
+  @Field(() => Int)
+  public PLN: number;
+
+  @Field(() => Int)
+  public EU: number;
+
+  @Field(() => Int)
+  public USD: number;
 }
