@@ -10,6 +10,7 @@ import { ConfigService } from './config/config.service';
 import { ItemModule } from './modules/item/item.module';
 import { UserModule } from './modules/user/user.module';
 import { ZombieModule } from './modules/zombie/zombie.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 const isDev = process.env.NODE_ENV === 'development';
 const GRAPHQL_SCHEMA_PATH = join(__dirname, 'schema.gql');
@@ -33,6 +34,7 @@ const GRAPHQL_SCHEMA_PATH = join(__dirname, 'schema.gql');
         return configService.getPublicTypeOrmConfig();
       },
     }),
+    ScheduleModule.forRoot(),
     ZombieModule,
     ConfigModule,
     UserModule,

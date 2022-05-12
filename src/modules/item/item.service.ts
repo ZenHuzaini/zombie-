@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { mapToDto, setCreatedAndModifiedFields } from 'src/shared/dto/mapping';
 import { PaginationDTO } from 'src/shared/dto/pagination.dto';
@@ -23,7 +23,7 @@ import { ERROR_MESSAGES } from 'src/constants/errorMessages';
 @Injectable()
 export class ItemService {
   private readonly externalItems: unknown;
-  private readonly rate: unknown;
+  private rate: unknown;
 
   constructor(
     @InjectRepository(Item)
@@ -36,6 +36,17 @@ export class ItemService {
       .then((response) => {
         return response.data;
       });
+    this.rate = this.httpService
+      .get('http://api.nbp.pl/api/exchangerates/tables/C/today/')
+      .toPromise()
+      .then((response) => {
+        return response.data[0].rates;
+      });
+  }
+
+  //Scehduling every midninght, the rate must be updated
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  handleSchedule() {
     this.rate = this.httpService
       .get('http://api.nbp.pl/api/exchangerates/tables/C/today/')
       .toPromise()
