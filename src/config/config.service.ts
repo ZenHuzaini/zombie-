@@ -63,9 +63,9 @@ export class ConfigService {
       ...this.getCommonTypeOrmConfig(),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       migrations: [__dirname + '/../migrations/public/*{.ts,.js}'],
-      cli: {
-        migrationsDir: './src/migrations/public',
-      },
+      // cli: {
+      //   migrationsDir: './src/migrations/public',
+      // },
       migrationsRun: true,
     };
 

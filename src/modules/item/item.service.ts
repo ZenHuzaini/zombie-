@@ -133,7 +133,9 @@ export class ItemService {
 
   public getItemsByZombieId = async (zombieId: string): Promise<ItemDTO[]> => {
     const items = await this.itemRepository.find({
-      zombieId: zombieId.toString(),
+      where: {
+        zombieId: zombieId.toString(),
+      },
     });
     const records = items.map((item) => mapToDto<Item, ItemDTO>(item));
     return records;
@@ -143,7 +145,9 @@ export class ItemService {
     zombieId: string,
   ): Promise<TotalItemPriceDTO> => {
     const items = await this.itemRepository.find({
-      zombieId: zombieId.toString(),
+      where: {
+        zombieId: zombieId.toString(),
+      },
     });
     const rates = (await this.rate) as ExternalRateApiResponse[];
 
